@@ -1,25 +1,20 @@
 import React from 'react';
+import { capitalizeFirstLetter } from '../../utils/helpers';
 
-const categories = [
-    {
-        name: "commerical",
-        description: "Photos of grocery stores, food trucks, and other commerical projects"
-    },
-    { name: "portraits", description: "Portraits of poeple in my life" },
-    { name: "food", descripton: " Delicious delicacies"},
-    {
-        name: "landscape",
-        description: "Fields, farmhouses, waterfalls, and the beauty of nature"
-    }
-];
+function Nav(props) {
+    const {
+        categories = [],
+        setCurrentCategory,
+        currentCategory
+    } = props;
 
-function categorySelected(name) {
-    console.log(`${name} clicked`)
-}
+    // const handleClick = (item) => {
+    //     console.log(item);
+    //     return item;
+    // }
 
-function Nav() {
     return (
-        <header className="flex-row">
+        <header className="flex-row px-1">
             <h2>
                 <a data-testid="link" href="/">
                     <span role="img" aria-label="camera">📸</span> Oh Snap!
@@ -36,12 +31,16 @@ function Nav() {
                         <span>Contact</span>
                     </li>
                     {categories.map((category) => (
-                        <li
-                            className="mx-1"
-                            key={category.name}
+                        <li className={`mx-1 ${
+                            currentCategory.name === category.name && 'navActive'
+                        }`} key={category.name}
                         >
-                            <span onClick={() => categorySelected(category.name)}> 
-                                {category.name}
+                            <span 
+                                onClick={() => {
+                                    setCurrentCategory(category)
+                                    }}
+                            > 
+                                   {capitalizeFirstLetter(category.name)} 
                             </span>
 
                         </li>
